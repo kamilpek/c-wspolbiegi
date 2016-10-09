@@ -1,14 +1,11 @@
 #!/bin/bash
 
-var=1
-
 echo $$
 
-until [$var -ge 5] do
-"$0"
-var=$((var+1))
-done
+sleep 5
 
-exit
+"$0"
+
+exit 0
 
 
