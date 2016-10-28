@@ -8,3 +8,7 @@ Zarządzanie procesmi i komunikacja przez współdzielone pliki w bashu.
 // ubijanie procesu
 kill -9 pid
 ```
+
+##Laboratorium 2. 22.10.2016
+Komunikacja przez współdzielone pliki w języku C.
+[Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab2_wspolbiegi.txt)
