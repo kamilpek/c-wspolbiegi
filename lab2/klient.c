@@ -9,7 +9,8 @@ void odczyt(){
     char slowo[100];
     char c;
     while((c = fscanf(buforo, "%s", slowo)) != EOF){
-      printf("%s\n", slowo); }
+      printf("%s " , slowo); }
+    printf("\n");
     fclose(buforo); }
   else printf("Nie mozna odczytac zawartosci bufora.\n");
 }
@@ -30,17 +31,16 @@ void czyscbufor(){
 
 int main(int argc, char *argv[]){
   char tekst[1000] = "";
-  FILE *buforz = fopen("bufor.txt", "a");
+  int bufor = open("bufor.txt", O_RDWR);
 
   czyscbufor();
-  fprintf(buforz, "%s", argv[1]);
 
   printf("Podaj tresc wiadomosci:\n");
-  scanf("%s", tekst);
-  fprintf(buforz, " pisze: %s\n", tekst);
+  gets(tekst);
+  write(bufor, tekst, 1000);
 
-  fclose(buforz);
+  close(bufor);
   serwer();
-  // odczyt();
+  odczyt();
   return 0;
 }
