@@ -1,26 +1,16 @@
 #!/bin/bash
 
-declare -i x
+while true; do
+	echo "Podaj liczbe:"
+	read LICZBA
+	echo $LICZBA > zad4_dane.txt
 
-echo "podaj cyfre"
-
-read x
-
-echo $x > zad4_dane.txt
-
-serwer_pid=`pidof zad4_serwer.sh`
-
-wait $serwer_pid
-
-if [ -s zad4_wyniki.txt ]
-then
-
-wynik=$(cat zad4_wyniki.txt)
-
-echo $wynik
-
-echo > zad4_dane.txt
-
-fi
-
-exit
+	while true; do
+		WYNIK=$(cat zad4_wyniki.txt 2> /dev/null)
+		if [ ! -z "$WYNIK" ]; then
+			echo "" > zad4_wyniki.txt
+			echo "Wynik: $WYNIK"
+			break
+		fi
+	done
+done
