@@ -1,6 +1,6 @@
 #!/bin/bash
 
-while true; do
+
 	echo "Podaj liczbe:"
 	read LICZBA
 	echo $LICZBA > zad4_dane.txt
@@ -13,4 +13,4 @@ while true; do
 			break
 		fi
 	done
-done
+
