@@ -1,6 +1,6 @@
-PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U
+PROSTE MECHANIZMY KOORDYNACJI PROCESï¿½W W BASH'U
 
-1.  Wypróbowaæ dzia³anie pary przyk³adowych skryptów za³¹czonych do Wyk³adu 6:
+1.  Wyprï¿½bowaï¿½ dziaï¿½anie pary przykï¿½adowych skryptï¿½w zaï¿½ï¿½czonych do Wykï¿½adu 6:
 
       ojciec
 
@@ -21,12 +21,12 @@ PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U
     p=p*p*p
     exit $p
 
-    (powy¿sza para skryptów realizuje obliczenie wartoœci wielomianu x*x + x*x*x
-    przy warunku, ¿e nie zostanie przekroczony zakres obliczeniowy dla liczb
+    (powyï¿½sza para skryptï¿½w realizuje obliczenie wartoï¿½ci wielomianu x*x + x*x*x
+    przy warunku, ï¿½e nie zostanie przekroczony zakres obliczeniowy dla liczb
     naturalnych jednobajtowych, czyli 0, ..., 255).
 
-2.  Wczytaæ liczby naturalne n, k (0<=k<=n<=5) i obliczyæ wartoœæ dwumianu
-    Newtona dla danych (n, k) metod¹ wspó³bie¿nego obliczenia trzech silni:
+2.  Wczytaï¿½ liczby naturalne n, k (0<=k<=n<=5) i obliczyï¿½ wartoï¿½ï¿½ dwumianu
+    Newtona dla danych (n, k) metodï¿½ wspï¿½ï¿½bieï¿½nego obliczenia trzech silni:
 
     ...
     silnia n &
@@ -34,7 +34,7 @@ PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U
     silnia k &
     ...
     silnia $((n-k)) &
-    ...                      # zapamiêtaæ PID-y uruchomionych trzech procesów
+    ...                      # zapamiï¿½taï¿½ PID-y uruchomionych trzech procesï¿½w
     wait ...
     ...
     wait ...
@@ -44,13 +44,13 @@ PROSTE MECHANIZMY KOORDYNACJI PROCESÓW W BASH'U
 
 3.  (PODLEGA ODBIOROWI - CZAS 2 TYGODNIE)
 
-    Utworzyæ skrypt o dwóch argumentach: szukaj plik katalog , który (podobnie,
-    jak polecenie find) znajduje wszystkie wyst¹pienia pliku o podanej nazwie
-    w poddrzewie katalogów o podanej nazwie œcie¿kowej korzenia. Skrypt powinien
-    dzia³aæ na zasadzie wspó³bie¿nych, rekurencyjnych wywo³añ dla wszystkich
-    podkatalogów danego katalogu i powinien wykorzystywaæ wy¿ej omówiony
-    mechanizm exit - wait do przekazywania informacji od procesów potomnych do
+    Utworzyï¿½ skrypt o dwï¿½ch argumentach: szukaj plik katalog , ktï¿½ry (podobnie,
+    jak polecenie find) znajduje wszystkie wystï¿½pienia pliku o podanej nazwie
+    w poddrzewie katalogï¿½w o podanej nazwie ï¿½cieï¿½kowej korzenia. Skrypt powinien
+    dziaï¿½aï¿½ na zasadzie wspï¿½ï¿½bieï¿½nych, rekurencyjnych wywoï¿½aï¿½ dla wszystkich
+    podkatalogï¿½w danego katalogu i powinien wykorzystywaï¿½ wyï¿½ej omï¿½wiony
+    mechanizm exit - wait do przekazywania informacji od procesï¿½w potomnych do
     rodzicielskich.
 
-    Uwaga: w przypadku, gdy skrypt nie znajdzie ani jednego wyst¹pienia danego
-           pliku, powinien wyœwietliæ komunikat "Nie znaleziono", ale TYLKO RAZ.
+    Uwaga: w przypadku, gdy skrypt nie znajdzie ani jednego wystï¿½pienia danego
+           pliku, powinien wyï¿½wietliï¿½ komunikat "Nie znaleziono", ale TYLKO RAZ.
