@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap "" SIGHUP SIGTERM
+
 pipe=serwerfifo
 if [[ -p $pipe ]]; then
   rm $pipe
