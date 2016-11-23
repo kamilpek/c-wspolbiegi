@@ -16,7 +16,7 @@ for job in `jobs -p`
 do
     	wait $job
 	silnie[i]=$?
-	i=$((i+1))	
+	i=$((i+1))
 done
 
 let "wynik = ${silnie[1]}*${silnie[2]}"
