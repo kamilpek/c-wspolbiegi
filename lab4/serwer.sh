@@ -1,11 +1,7 @@
 #!/bin/bash
 
 trap "" SIGHUP SIGTERM SIGCHLD
-<<<<<<< HEAD
 trap "exit 0" SIGUSR1
-=======
-# trap "exit 0" SIGUSR1
->>>>>>> 00c689fd590cf38671b5eb7587efd09b1059ca1d
 
 pipe=serwerfifo
 if [[ -p $pipe ]]; then
