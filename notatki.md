@@ -20,3 +20,7 @@ Proste mechanizmy koordynacji w bash'u.
 ##Laboratorium 4. 19.11.2016
 Kolejki FIFO i signały w bash'u.
 [Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab4_wspolbiegi.txt)
+
+##Laboratorium 5. 26.11.2016
+Kolejki FIFO w języku C.
+[Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab5_wspolbiegi.txt)

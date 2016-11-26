@@ -1,11 +1,7 @@
 #!/bin/bash
 
 trap "" SIGHUP SIGTERM SIGCHLD
-<<<<<<< HEAD
-trap "exit 0" SIGUSR1
-=======
 # trap "exit 0" SIGUSR1
->>>>>>> 00c689fd590cf38671b5eb7587efd09b1059ca1d
 
 pipe=serwerfifo
 if [[ -p $pipe ]]; then
@@ -20,7 +16,7 @@ valid='home'
 
 if [ ! -z $3 ]; then
   if [ ! -z $1 ] && [ ! -z $2 ]; then
-    klient="/home/studinf/$1/Dokumenty/wspolbiegi/laborki/lab4/klientfifo"
+    klient="home/studinf/$1/Dokumenty/wspolbiegi/laborki/lab4"
     if [[ -p $klient ]]; then
       var=$2
       let "var+=1"
@@ -35,7 +31,6 @@ if [ ! -z $3 ]; then
     while true
     do
       if read line <$pipe; then
-        echo $line
         copy=$line
         line=$(sed 's/[0-9]*//g' <<< $line)
         x=$line

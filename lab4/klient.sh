@@ -1,20 +1,23 @@
 #!/bin/bash
 
+digit='^[0-9]+$'
+
+
 usr=$(echo $HOME)
 # usr="majster"
-
-klient="$usr/Dokumenty/wspolbiegi/laborki/lab4/klientfifo"
-serwer="/home/$2/Dokumenty/wspolbiegi/laborki/lab4/serwerfifo"
+user=$(whoami)
+klient="/home/studinf/$user/Dokumenty/wspolbiegi/laborki/lab4/klientfifo"
+serwer="/home/studinf/$2/Dokumenty/wspolbiegi/laborki/lab4/serwerfifo"
 
 
 if [[ ! -p $serwer ]]; then
-  echo "nie mozna sie polaczyc z laczem serwera"
+  echo "nie mozna sie polaczyc z laczem serwera $serwer"
   exit 1
 fi
 
 
 if [[ "$1" ]]; then
-  echo $usr $1 >$serwer
+  echo $user $1 >$serwer
   # echo "$1" >$serwer
   if [[ -p $klient ]]; then
     while true
@@ -30,7 +33,6 @@ if [[ "$1" ]]; then
     done
       else
         echo "nima"
-        echo "$klient"
   fi
 else
   echo "podaj prawidlowy argument polecenia"
