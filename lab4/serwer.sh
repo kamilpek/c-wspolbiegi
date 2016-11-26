@@ -1,6 +1,7 @@
 #!/bin/bash
 
-trap "" SIGHUP SIGTERM
+trap "" SIGHUP SIGTERM SIGCHLD
+trap "exit 0" SIGUSR1
 
 pipe=serwerfifo
 if [[ -p $pipe ]]; then
