@@ -13,16 +13,15 @@ if [ -d "$1" ]; then
     sciezka="$1"
     cd $sciezka
   fi
+
+  for j in $( ls -d */ 2>/dev/null ); do
+      $0 "$j" "$2" 1 &
+  done
+
   for i in $( ls ); do
     if [ "$i" == "$2" ] ; then
       let "x += 1"
-      echo "$dir/$1"
-    else
-      # echo $i $2
-      for j in $( ls -d */ 2>/dev/null ); do
-          # echo $i $1
-          $0 "$j" "$2" 1 &
-      done
+      echo "$dir/$1$2"
     fi
   done
 else
