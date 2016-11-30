@@ -11,6 +11,7 @@ gcc serwer.c -o serwer.out -Wall
 #include <linux/stat.h>
 
 #define SERWERFIFO "serwerfifo"
+#define KLIENTFIFO "klientfifo"
 
 struct nazwiska{
   int ID;
@@ -22,14 +23,14 @@ struct nazwiska ludzie[20], bufs;
 int main(){
   FILE *fp;
   char readbuf[80];
-  // char sample[20] = "test";
+  char sample[80] = "test";
 
   while(1){
     fp = fopen(SERWERFIFO, "r");
     fgets(readbuf, 80, fp);
-    // if(readbuf == sample){
-    //   printf("jest lol\n");
-    // }
+    if(strcmp(readbuf, sample) == 0){
+      printf("test działa\n");
+    }
     // printf("%s ", sample);
     printf("%s\n", readbuf);
     fclose(fp);

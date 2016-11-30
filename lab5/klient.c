@@ -6,21 +6,25 @@ gcc klient.c -o klient.out -Wall
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <linux/stat.h>
 
+#define SERWERFIFO "serwerfifo"
 #define KLIENTFIFO "klientfifo"
 
-int main(){
+int main(int argc, char *argv[]){
   FILE *fp;
-  char readbuf[80];
 
-  while(1){
-    fp = fopen(KLIENTFIFO, "r");
-    fgets(readbuf, 80, fp);
-    printf("%s\n", readbuf);
-    fclose(fp);
+  if(argc != 2){
+    printf("Użycie: klientfifo [łanćuch]\n");
+    exit(1);
   }
+
+  if((fp = fopen(SERWERFIFO, "w")) == NULL){
+    perror("fopen");
+    exit(1);
+  }
+
+  fputs(argv[1], fp);
+
+  fclose(fp);
   return(0);
 }
