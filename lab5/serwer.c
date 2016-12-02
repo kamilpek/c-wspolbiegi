@@ -47,7 +47,7 @@ int main(){
   baza[18].nazwisko = "Piotrowski";
   baza[19].nazwisko = "Grabowski";
 
-  for(i = 0; i < 20; i++){
+  for(i = 1; i < 20; i++){
     baza[i].ID = i;
   }
 
@@ -56,13 +56,16 @@ int main(){
   // }
 
   while(1){
+    char tresc[2] = "";
     fp = fopen(SERWERFIFO, "r");
     fgets(readbuf, 80, fp);
     if(strcmp(readbuf, sample) == 0){
       printf("test działa\n");
     }
     // printf("%s ", sample);
-    printf("%s\n", readbuf);
+    strcat(tresc, readbuf);
+    // strcat(tresc, readbuf[1]);
+    printf("%s\n", tresc);
     fclose(fp);
   }
   return(0);
