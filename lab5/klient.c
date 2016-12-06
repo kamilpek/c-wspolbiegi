@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-29.11.2016
+06.12.2016
 gcc klient.c -o klient.out -Wall
 */
 
@@ -12,45 +12,36 @@ gcc klient.c -o klient.out -Wall
 #define SERWERFIFO "serwerfifo"
 #define KLIENTFIFO "klientfifo"
 
-int rozmiar(char komunikat[120]){
-  int index = 0;
-  int i = 0;
-  // int dlg = 0;
-  // dlg = sizeof(komunikat);
-  do{
-    index = index + 1;
-  } while(komunikat[i] != '\0');
-  printf("%d\t", index);
-  return index;
-}
-
 int main(int argc, char *argv[]){
   FILE *fp;
+  // FILE *fs;
   char *home = getenv("HOME");
-  int dlugosc = 0;
+  char komunikat[120] = "";
+  char readbuf[80] = "";
+  int index = 0;
 
   if(argc != 2){
     printf("Użycie: klientfifo [indeks rekordu bazy]\n");
-    exit(1);
-  }
+    exit(1); }
 
   if((fp = fopen(SERWERFIFO, "w")) == NULL){
     perror("fopen");
-    exit(1);
-  }
+    exit(1); }
 
-  char komunikat[120] = "";
-  strcat(komunikat, home);
-  strcat(komunikat, " ");
   strcat(komunikat, argv[1]);
+  strcat(komunikat, home);
 
-  dlugosc = sizeof(komunikat) / sizeof(komunikat[0]);
-  // dlugosc = rozmiar(komunikat);
+  do{
+    index = index + 1;
+  } while(komunikat[index] != '\0');
 
-  fputs(komunikat, fp);
-  printf("%d\t", dlugosc);
-  printf("%c\n", komunikat[100]);
+  fprintf(fp, "%d%s", index, komunikat);
+
+  // fs = fopen(SERWERFIFO, "r");
+  // fgets(readbuf, 80, fs);
+  // printf("%s", readbuf);
 
   fclose(fp);
+  // fclose(fs);
   return(0);
 }

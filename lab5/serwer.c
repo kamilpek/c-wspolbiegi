@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-29.11.2016
+06.12.2016
 gcc serwer.c -o serwer.out -Wall
 */
 
@@ -20,10 +20,10 @@ struct nazwiska{
 };
 
 int main(){
-  FILE *fp;
-  char readbuf[80];
-  char sample[80] = "test";
-  int i = 0;
+  FILE *fs;
+  FILE *fk;
+  char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "";
+  int i = 0, j = 0, dx = 0, ix = 0, k = 0;
 
   struct nazwiska baza[20];
   baza[0].nazwisko = "Nowak";
@@ -47,26 +47,49 @@ int main(){
   baza[18].nazwisko = "Piotrowski";
   baza[19].nazwisko = "Grabowski";
 
-  for(i = 1; i < 20; i++){
-    baza[i].ID = i;
-  }
+  for(k = 1; k < 20; k++) baza[k].ID = k;
 
-  // for(i = 0; i < 20; i++){
-  //   printf("%d %s\n", baza[i].ID, baza[i].nazwisko);
-  // }
+  // wyswietlanie wszystkich rekordow bazy danych
+  // for(i = 0; i < 20; i++) printf("%d %s\n", baza[i].ID, baza[i].nazwisko);
 
   while(1){
-    char tresc[2] = "";
-    fp = fopen(SERWERFIFO, "r");
-    fgets(readbuf, 80, fp);
-    if(strcmp(readbuf, sample) == 0){
-      printf("test działa\n");
-    }
-    // printf("%s ", sample);
-    strcat(tresc, readbuf);
-    // strcat(tresc, readbuf[1]);
-    printf("%s\n", tresc);
-    fclose(fp);
+    i = j = dx = ix = 0;
+
+    fs = fopen(SERWERFIFO, "r");
+    fgets(readbuf, 80, fs);
+
+    // pobieranie dlugosci komunikatu
+    dlugosc[0] = readbuf[0];
+    dlugosc[1] = readbuf[1];
+    sscanf(dlugosc, "%d", &dx);
+    dx = dx + 2;
+
+    // pobieranie indeksu
+    if(readbuf[3] != '/') {
+      index[0] = readbuf[2];
+      index[1] = readbuf[3]; }
+    else index[0] = readbuf[2];
+    sscanf(index, "%d", &ix);
+
+    // pobieranie sciezki home klienta
+    if(readbuf[3] != '/') {
+      for(i = 4; i < dx; i++){
+        klient[j] = readbuf[i];
+        j++; } }
+    else {
+      for(i = 3; i < dx; i++){
+        klient[j] = readbuf[i];
+        j++; } }
+
+    // otwieranie fifo u klienta
+    // strcat(klient, "/Dokumenty/wspolbiegi/laborki/lab5/klientfifo");
+    // fk = fopen(KLIENTFIFO, "w");
+    // fprintf(fk, "test");
+
+    printf("%s\n", klient);
+    printf("%s\n", baza[ix].nazwisko);
+    fclose(fs);
+    // fclose(fk);
   }
   return(0);
 }
