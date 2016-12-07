@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-06.12.2016
+07.12.2016
 gcc serwer.c -o serwer.out -Wall
 */
 
@@ -22,7 +22,7 @@ struct nazwiska{
 int main(){
   FILE *fs;
   FILE *fk;
-  char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "";
+  char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "", sciezka[100] = "";
   int i = 0, j = 0, dx = 0, ix = 0, k = 0;
 
   struct nazwiska baza[20];
@@ -53,7 +53,12 @@ int main(){
   // for(i = 0; i < 20; i++) printf("%d %s\n", baza[i].ID, baza[i].nazwisko);
 
   while(1){
-    i = j = dx = ix = 0;
+    i = j = k = dx = ix = 0;
+    for(k = 0; k < sizeof(readbuf); k++) readbuf[i] = '\0';
+    for(k = 0; k < sizeof(dlugosc); k++) dlugosc[i] = '\0';
+    for(k = 0; k < sizeof(index); k++) index[i] = '\0';
+    for(k = 0; k < sizeof(klient); k++) klient[i] = '\0';
+    for(k = 0; k < sizeof(sciezka); k++) sciezka[i] = '\0';
 
     fs = fopen(SERWERFIFO, "r");
     fgets(readbuf, 80, fs);
@@ -70,6 +75,7 @@ int main(){
       index[1] = readbuf[3]; }
     else index[0] = readbuf[2];
     sscanf(index, "%d", &ix);
+    ix = ix - 1;
 
     // pobieranie sciezki home klienta
     if(readbuf[3] != '/') {
@@ -83,13 +89,14 @@ int main(){
 
     // otwieranie fifo u klienta
     // strcat(klient, "/Dokumenty/wspolbiegi/laborki/lab5/klientfifo");
-    // fk = fopen(KLIENTFIFO, "w");
-    // fprintf(fk, "test");
+    // sscanf(klient, "%s/Dokumenty/wspolbiegi/laborki/lab5/klientfifo", sciezka);
+    fk = fopen(KLIENTFIFO, "w");
+    fprintf(fk, "%s\n", baza[ix].nazwisko);
 
-    printf("%s\n", klient);
+    // printf("%s\n", sciezka);
     printf("%s\n", baza[ix].nazwisko);
     fclose(fs);
-    // fclose(fk);
+    fclose(fk);
   }
   return(0);
 }

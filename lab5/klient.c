@@ -1,20 +1,22 @@
 /*
 Kamil Pek 231050
-06.12.2016
+07.12.2016
 gcc klient.c -o klient.out -Wall
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <linux/stat.h>
 #include <string.h>
 
 #define SERWERFIFO "serwerfifo"
 #define KLIENTFIFO "klientfifo"
 
 int main(int argc, char *argv[]){
-  FILE *fp;
-  // FILE *fs;
+  FILE *fs;
+  FILE *fk;
   char *home = getenv("HOME");
   char komunikat[120] = "";
   char readbuf[80] = "";
@@ -24,7 +26,7 @@ int main(int argc, char *argv[]){
     printf("Użycie: klientfifo [indeks rekordu bazy]\n");
     exit(1); }
 
-  if((fp = fopen(SERWERFIFO, "w")) == NULL){
+  if((fs = fopen(SERWERFIFO, "w")) == NULL){
     perror("fopen");
     exit(1); }
 
@@ -35,13 +37,13 @@ int main(int argc, char *argv[]){
     index = index + 1;
   } while(komunikat[index] != '\0');
 
-  fprintf(fp, "%d%s", index, komunikat);
+  fprintf(fs, "%d%s", index, komunikat);
 
-  // fs = fopen(SERWERFIFO, "r");
-  // fgets(readbuf, 80, fs);
-  // printf("%s", readbuf);
+  fk = fopen(KLIENTFIFO, "r");
+  fgets(readbuf, 80, fk);
+  printf("%s", readbuf);
 
-  fclose(fp);
-  // fclose(fs);
+  fclose(fs);
+  fclose(fk);
   return(0);
 }

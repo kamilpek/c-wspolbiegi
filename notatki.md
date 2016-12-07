@@ -21,6 +21,13 @@ Proste mechanizmy koordynacji w bash'u.
 Kolejki FIFO i signały w bash'u.
 [Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab4_wspolbiegi.txt)
 
+```bash
+// czytanie z fifo
+cat < fifo
+// zapisywanie do fifo
+cat > fifo
+```
+
 ##Laboratorium 5. 26.11.2016
 Kolejki FIFO w języku C.
 [Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab5_wspolbiegi.txt)
