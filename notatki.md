@@ -31,3 +31,7 @@ cat > fifo
 ##Laboratorium 5. 26.11.2016
 Kolejki FIFO w języku C.
 [Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab5_wspolbiegi.txt)
+
+##Laboratorium 5. 26.11.2016
+Kolejki komunikatów.
+[Link do zadania](http://strony.ug.edu.pl/~matjs/Laboratoria/Wspolbiegi/Lab6_wspolbiegi.txt)

@@ -38,12 +38,12 @@ int main(int argc, char *argv[]){
   } while(komunikat[index] != '\0');
 
   fprintf(fs, "%d%s", index, komunikat);
+  fclose(fs);
 
   fk = fopen(KLIENTFIFO, "r");
   fgets(readbuf, 80, fk);
   printf("%s", readbuf);
-
-  fclose(fs);
   fclose(fk);
+
   return(0);
 }

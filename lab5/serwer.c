@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-07.12.2016
+10.12.2016
 gcc serwer.c -o serwer.out -Wall
 */
 
@@ -21,7 +21,6 @@ struct nazwiska{
 
 int main(){
   FILE *fs;
-  FILE *fk;
   char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "", sciezka[100] = "";
   int i = 0, j = 0, dx = 0, ix = 0, k = 0;
 
@@ -53,6 +52,7 @@ int main(){
   // for(i = 0; i < 20; i++) printf("%d %s\n", baza[i].ID, baza[i].nazwisko);
 
   while(1){
+    FILE *fk;
     i = j = k = dx = ix = 0;
     for(k = 0; k < sizeof(readbuf); k++) readbuf[i] = '\0';
     for(k = 0; k < sizeof(dlugosc); k++) dlugosc[i] = '\0';
@@ -62,6 +62,7 @@ int main(){
 
     fs = fopen(SERWERFIFO, "r");
     fgets(readbuf, 80, fs);
+    fclose(fs);
 
     // pobieranie dlugosci komunikatu
     dlugosc[0] = readbuf[0];
@@ -88,15 +89,12 @@ int main(){
         j++; } }
 
     // otwieranie fifo u klienta
-    // strcat(klient, "/Dokumenty/wspolbiegi/laborki/lab5/klientfifo");
-    // sscanf(klient, "%s/Dokumenty/wspolbiegi/laborki/lab5/klientfifo", sciezka);
     fk = fopen(KLIENTFIFO, "w");
     fprintf(fk, "%s\n", baza[ix].nazwisko);
+    fclose(fk);
 
     // printf("%s\n", sciezka);
-    printf("%s\n", baza[ix].nazwisko);
-    fclose(fs);
-    fclose(fk);
+    // printf("%s\n", baza[ix].nazwisko);
   }
   return(0);
 }
