@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-10.12.2016
+11.12.2016
 gcc serwer.c -o serwer.out -Wall
 */
 
@@ -10,6 +10,7 @@ gcc serwer.c -o serwer.out -Wall
 #include <sys/stat.h>
 #include <linux/stat.h>
 #include <string.h>
+#include <ctype.h>
 
 #define SERWERFIFO "serwerfifo"
 #define KLIENTFIFO "klientfifo"
@@ -21,7 +22,9 @@ struct nazwiska{
 
 int main(){
   FILE *fs;
-  char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "", sciezka[100] = "";
+  char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "";
+  char sciezka[100] = "";
+  char odpowiedz[20] = "nie ma\n", fifo[20] = "/klientfifo";
   int i = 0, j = 0, dx = 0, ix = 0, k = 0;
 
   struct nazwiska baza[20];
@@ -59,6 +62,7 @@ int main(){
     for(k = 0; k < sizeof(index); k++) index[i] = '\0';
     for(k = 0; k < sizeof(klient); k++) klient[i] = '\0';
     for(k = 0; k < sizeof(sciezka); k++) sciezka[i] = '\0';
+    strcpy(odpowiedz, "nie ma\n");
 
     fs = fopen(SERWERFIFO, "r");
     fgets(readbuf, 80, fs);
@@ -71,12 +75,18 @@ int main(){
     dx = dx + 2;
 
     // pobieranie indeksu
-    if(readbuf[3] != '/') {
+    if(isdigit(readbuf[3])) {
       index[0] = readbuf[2];
       index[1] = readbuf[3]; }
     else index[0] = readbuf[2];
     sscanf(index, "%d", &ix);
     ix = ix - 1;
+    if(isdigit(readbuf[4])) ix = 22;
+
+    // sprawdzanie indeksu
+    if(ix < 20) sscanf(baza[ix].nazwisko, "%s\n", odpowiedz);
+    if(ix > 20) strcpy(odpowiedz, "nie ma\n");
+    if(ix < 0) strcpy(odpowiedz, "nie ma\n");
 
     // pobieranie sciezki home klienta
     if(readbuf[3] != '/') {
@@ -88,12 +98,17 @@ int main(){
         klient[j] = readbuf[i];
         j++; } }
 
+    // montowanie sciezki do fifo
+    // char * sciezka = (char *) malloc(1 + strlen(klient)+ strlen(fifo));
+    strcpy(sciezka, klient);
+    strcat(sciezka, fifo);
+
     // otwieranie fifo u klienta
-    fk = fopen(KLIENTFIFO, "w");
-    fprintf(fk, "%s\n", baza[ix].nazwisko);
+    fk = fopen(sciezka, "w");
+    fprintf(fk, "%s\n", odpowiedz);
     fclose(fk);
 
-    // printf("%s\n", sciezka);
+    printf("Wysłano odpowiedz do: %s\n", sciezka);
     // printf("%s\n", baza[ix].nazwisko);
   }
   return(0);

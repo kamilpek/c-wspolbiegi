@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-07.12.2016
+11.12.2016
 gcc klient.c -o klient.out -Wall
 */
 
@@ -12,7 +12,7 @@ gcc klient.c -o klient.out -Wall
 #include <string.h>
 
 #define SERWERFIFO "serwerfifo"
-#define KLIENTFIFO "klientfifo"
+#define KLIENTFIFO "/home/majster/klientfifo"
 
 int main(int argc, char *argv[]){
   FILE *fs;
