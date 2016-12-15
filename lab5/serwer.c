@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-11.12.2016
+15.12.2016
 gcc serwer.c -o serwer.out -Wall
 */
 
@@ -25,7 +25,7 @@ int main(){
   char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "";
   char sciezka[100] = "";
   char odpowiedz[20] = "nie ma\n", fifo[20] = "/klientfifo";
-  int i = 0, j = 0, dx = 0, ix = 0, k = 0;
+  int i = 0, j = 0, dx = 0, ix = 0, k = 0, p = 0;
 
   struct nazwiska baza[20];
   baza[0].nazwisko = "Nowak";
@@ -56,7 +56,7 @@ int main(){
 
   while(1){
     FILE *fk;
-    i = j = k = dx = ix = 0;
+    i = j = k = p = dx = ix = 0;
     for(k = 0; k < sizeof(readbuf); k++) readbuf[i] = '\0';
     for(k = 0; k < sizeof(dlugosc); k++) dlugosc[i] = '\0';
     for(k = 0; k < sizeof(index); k++) index[i] = '\0';
@@ -74,11 +74,16 @@ int main(){
     sscanf(dlugosc, "%d", &dx);
     dx = dx + 2;
 
+    // ustalanie dlugosci podanej liczby
+    while(readbuf[p] != '/') p++;
+
     // pobieranie indeksu
     if(isdigit(readbuf[3])) {
       index[0] = readbuf[2];
       index[1] = readbuf[3]; }
-    else index[0] = readbuf[2];
+    else{
+      index[0] = readbuf[2];
+      index[1] = '\0'; }
     sscanf(index, "%d", &ix);
     ix = ix - 1;
     if(isdigit(readbuf[4])) ix = 22;
@@ -89,17 +94,11 @@ int main(){
     if(ix < 0) strcpy(odpowiedz, "nie ma\n");
 
     // pobieranie sciezki home klienta
-    if(readbuf[3] != '/') {
-      for(i = 4; i < dx; i++){
-        klient[j] = readbuf[i];
-        j++; } }
-    else {
-      for(i = 3; i < dx; i++){
-        klient[j] = readbuf[i];
-        j++; } }
+    for(i = p; i < dx; i++){
+      klient[j] = readbuf[i];
+      j++; }
 
     // montowanie sciezki do fifo
-    // char * sciezka = (char *) malloc(1 + strlen(klient)+ strlen(fifo));
     strcpy(sciezka, klient);
     strcat(sciezka, fifo);
 
@@ -108,8 +107,7 @@ int main(){
     fprintf(fk, "%s\n", odpowiedz);
     fclose(fk);
 
-    printf("Wysłano odpowiedz do: %s\n", sciezka);
-    // printf("%s\n", baza[ix].nazwisko);
+    printf("Wysłano odpowiedz do: %s\t %d \n", sciezka, p);
   }
   return(0);
 }
