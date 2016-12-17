@@ -35,3 +35,7 @@ Kolejki FIFO w języku C.
 ##Laboratorium 6. 10.12.2016
 Kolejki komunikatów.
 [Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab6/Lab6_wspolbiegi.txt)
+
+##Laboratorium 7. 17.12.2016
+Pamięć współdzielona i semafory.
+[Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab7/Lab7_wspolbiegi.txt)
