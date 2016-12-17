@@ -11,9 +11,10 @@ gcc serwer.c -o serwer.out -Wall
 #include <linux/stat.h>
 #include <string.h>
 #include <ctype.h>
+#include <fcntl.h>
 
-#define SERWERFIFO "serwerfifo"
-#define KLIENTFIFO "klientfifo"
+#define SERWERFIFO "/home/studinf/kpek/serwerfifo"
+#define KLIENTFIFO "/klientfifo"
 
 struct nazwiska{
   int ID;
@@ -22,6 +23,7 @@ struct nazwiska{
 
 int main(){
   FILE *fs;
+  int fk = 0;
   char readbuf[80] = "", dlugosc[2] = "", index[2] = "", klient[20] = "";
   char sciezka[100] = "";
   char odpowiedz[20] = "nie ma\n", fifo[20] = "/klientfifo";
@@ -55,7 +57,6 @@ int main(){
   // for(i = 0; i < 20; i++) printf("%d %s\n", baza[i].ID, baza[i].nazwisko);
 
   while(1){
-    FILE *fk;
     i = j = k = p = dx = ix = 0;
     for(k = 0; k < sizeof(readbuf); k++) readbuf[i] = '\0';
     for(k = 0; k < sizeof(dlugosc); k++) dlugosc[i] = '\0';
@@ -89,9 +90,9 @@ int main(){
     if(isdigit(readbuf[4])) ix = 22;
 
     // sprawdzanie indeksu
-    if(ix < 20) sscanf(baza[ix].nazwisko, "%s\n", odpowiedz);
-    if(ix > 20) strcpy(odpowiedz, "nie ma\n");
-    if(ix < 0) strcpy(odpowiedz, "nie ma\n");
+    if(ix < 20) sscanf(baza[ix].nazwisko, "%s", odpowiedz);
+    if(ix > 20) strcpy(odpowiedz, "nie ma");
+    if(ix < 0) strcpy(odpowiedz, "nie ma");
 
     // pobieranie sciezki home klienta
     for(i = p; i < dx; i++){
@@ -103,11 +104,12 @@ int main(){
     strcat(sciezka, fifo);
 
     // otwieranie fifo u klienta
-    fk = fopen(sciezka, "w");
-    fprintf(fk, "%s\n", odpowiedz);
-    fclose(fk);
+    fk = open(sciezka, O_WRONLY);
+    if(fk == -1) printf("Blad otwarcia\n");
+    write(fk, odpowiedz, strlen(odpowiedz)+1);
+    close(fk);
 
-    printf("Wysłano odpowiedz do: %s\t %d \n", sciezka, p);
+    // printf("Wysłano odpowiedz do: %s\n", sciezka);
   }
   return(0);
 }

@@ -1,6 +1,6 @@
 /*
 Kamil Pek 231050
-11.12.2016
+17.12.2016
 gcc klient.c -o klient.out -Wall
 */
 
@@ -10,14 +10,17 @@ gcc klient.c -o klient.out -Wall
 #include <sys/stat.h>
 #include <linux/stat.h>
 #include <string.h>
+#include <fcntl.h>
 
-#define SERWERFIFO "serwerfifo"
-#define KLIENTFIFO "/home/majster/klientfifo"
+#define SERWERFIFO "/home/studinf/kpek/serwerfifo"
+#define KLIENTFIFO "/home/studinf/kpek/klientfifo"
 
 int main(int argc, char *argv[]){
-  FILE *fs;
+  // FILE *fs;
+  int fs = 0;
   FILE *fk;
   char *home = getenv("HOME");
+  char msg[200] = "";
   char komunikat[120] = "";
   char readbuf[80] = "";
   int index = 0;
@@ -26,9 +29,8 @@ int main(int argc, char *argv[]){
     printf("Użycie: klientfifo [indeks rekordu bazy]\n");
     exit(1); }
 
-  if((fs = fopen(SERWERFIFO, "w")) == NULL){
-    perror("fopen");
-    exit(1); }
+  fs = open(SERWERFIFO, O_WRONLY);
+  if(fs == -1) printf("Blad otwarcia\n");
 
   strcat(komunikat, argv[1]);
   strcat(komunikat, home);
@@ -37,12 +39,13 @@ int main(int argc, char *argv[]){
     index = index + 1;
   } while(komunikat[index] != '\0');
 
-  fprintf(fs, "%d%s", index, komunikat);
-  fclose(fs);
+  sprintf(msg, "%d%s", index, komunikat);
+  write(fs, msg, strlen(msg)+1);
+  close(fs);
 
   fk = fopen(KLIENTFIFO, "r");
   fgets(readbuf, 80, fk);
-  printf("%s", readbuf);
+  printf("%s\n", readbuf);
   fclose(fk);
 
   return(0);
