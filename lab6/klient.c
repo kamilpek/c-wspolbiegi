@@ -1,3 +1,9 @@
+/*
+Kamil Pek 231050
+17.12.2016
+gcc klient.c -o klient.out -Wall
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/msg.h>
