@@ -39,3 +39,7 @@ Kolejki komunikatów.
 ##Laboratorium 7. 17.12.2016
 Pamięć współdzielona i semafory.
 [Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab7/Lab7_wspolbiegi.txt)
+
+##Laboratorium 8. 07.01.2016
+Gniazda BSD.
+[Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab8/Lab8_wspolbiegi.txt)
