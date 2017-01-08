@@ -7,7 +7,9 @@
 #include <string.h>
 #include <errno.h>
 #include <fcntl.h>
-#include "data.h"
+#include <arpa/inet.h>
+
+#define IP_ADD "153.19.1.202"
 
 int main()
 {
@@ -16,16 +18,15 @@ int main()
    	struct sockaddr_in to;
 	sd =  socket(PF_INET, SOCK_DGRAM, 0);
 
-	//config of input address data
 	memset(&to, 0x00, size);
 	to.sin_family=AF_INET;
 	to.sin_port = htons((ushort)5000);
-	inet_pton(PF_INET, 153.19.1.202, &to.sin_addr);
+	inet_pton(PF_INET, IP_ADD, &to.sin_addr);
 	size = sizeof(struct sockaddr_in);
 
 	bind(sd,(struct sockaddr*) &to, size);
 
-	printf("Enter the number pleasE!!:\n");
+	printf("Podaj liczbe:\n");
 	scanf("%d", &num);
 
 	num = htonl(num);
@@ -34,5 +35,5 @@ int main()
 	recvfrom(sd,(char *) &num, sizeof(int),0, (struct sockaddr *) &to, &size);
       	num = ntohl(num);
 
-	printf("RECEIVED NUMBER: %d\n", num);
+	printf("Odebrano: %d\n", num);
 }
