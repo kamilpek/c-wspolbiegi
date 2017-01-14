@@ -43,3 +43,7 @@ Pamięć współdzielona i semafory.
 ##Laboratorium 8. 07.01.2016
 Gniazda BSD.
 [Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab8/Lab8_wspolbiegi.txt)
+
+##Laboratorium 9. 14.01.2016
+Biblioteka funkcji graficznych Xlib.
+[Link do zadania](https://github.com/kamilpek/Programowanie-Wspolbiezne/tree/master/lab9/Lab9_wspolbiegi.txt)
